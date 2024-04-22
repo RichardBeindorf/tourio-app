@@ -23,7 +23,12 @@ const FixedLink = styled(StyledLink)`
   right: 50px;
 `;
 export default function Home() {
-  const { data } = useSWR("/api/places", { fallbackData: [] });
+  const { data } = useSWR("/api/places");
+
+  if (!data) {
+    return;
+  }
+  console.log(data);
 
   return (
     <>
@@ -35,7 +40,7 @@ export default function Home() {
                 name={place.name}
                 image={place.image}
                 location={place.location}
-                id={place.id}
+                id={place._id}
               />
             </ListItem>
           );
